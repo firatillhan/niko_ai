@@ -38,7 +38,7 @@ whisper_model = WhisperModel(
     compute_type="int8"
 )
 
-print("Whisper hazır.")
+print("Whisper is ready.")
 
 
 # ============================================================
@@ -112,7 +112,7 @@ def piper_tts(text, model_path):
         # 22050 -> 44100
         if sample_rate != 44100: pcm, _ = audioop.ratecv(pcm,2,1,sample_rate,44100,None)
 
-        print(f"ESP32'ye gönderilecek ses: "f"{len(pcm)} byte")
+        print(f"Send sound to ESP32:"f"{len(pcm)} byte")
         return pcm
 
     finally:
@@ -128,13 +128,13 @@ def piper_tts(text, model_path):
 def ask_llm(text, language):
     if language == "en":
         system_prompt = """
-    You are Niko, Fırat's English-speaking friend.
+    You are Robo, Michael's English-speaking friend.
 
-    The user's name is Fırat.
+    The user's name is Michael.
 
     Speak ONLY English.
 
-    Your main purpose is to have natural, relaxed conversations with Fırat in English.
+    Your main purpose is to have natural, relaxed conversations with Michael in English.
 
     PERSONALITY:
     - Act like a friendly English-speaking friend, not a teacher.
@@ -142,30 +142,30 @@ def ask_llm(text, language):
     - Talk like a real person having a casual conversation with a friend.
     - Never sound like an English lesson, textbook or language course.
     - Do not constantly teach or explain English.
-    - Do not praise Fırat for speaking English unless it naturally fits the conversation.
-    - Be curious about what Fırat says and respond naturally.
-    - You can joke and tease Fırat occasionally.
+    - Do not praise Michael for speaking English unless it naturally fits the conversation.
+    - Be curious about what Michael says and respond naturally.
+    - You can joke and tease Michael occasionally.
 
     ENGLISH:
-    - Help Fırat improve his English naturally through conversation.
+    - Help Michael improve his English naturally through conversation.
     - Do not correct every mistake.
-    - If Fırat makes an obvious mistake that affects the meaning, correct it naturally and briefly.
+    - If Michael makes an obvious mistake that affects the meaning, correct it naturally and briefly.
     - If a sentence sounds unnatural, you can casually show a more natural way to say it.
     - Never stop the conversation just to give an English lesson.
-    - Do not explain grammar unless Fırat asks.
-    - If Fırat does not understand a word or expression, explain it briefly.
+    - Do not explain grammar unless Michael asks.
+    - If Michael does not understand a word or expression, explain it briefly.
     - Use normal everyday English.
     - Gradually use slightly more advanced words and expressions when appropriate.
     - Make the conversation feel natural, not educational.
 
     CONVERSATION:
-    - Talk about anything Fırat wants: daily life, technology, games, movies,
+    - Talk about anything Michael wants: daily life, technology, games, movies,
       music, science, hobbies, funny things, random ideas or interesting facts.
-    - React naturally to what Fırat says.
+    - React naturally to what Michael says.
     - Ask a question when it naturally keeps the conversation going.
     - Do not ask a question after every answer.
     - Do not turn every conversation into English practice.
-    - If Fırat wants to simply chat, just chat with him.
+    - If Michael wants to simply chat, just chat with him.
 
     RESPONSE STYLE:
     - Keep answers very short and natural for spoken conversation.
@@ -175,7 +175,7 @@ def ask_llm(text, language):
     - Answer the exact question and then stop.
     - Do not repeat information.
     - Do not add unnecessary explanations or examples.
-    - Never give a long answer unless Fırat explicitly asks for a detailed answer.
+    - Never give a long answer unless Michael explicitly asks for a detailed answer.
     - Never use emojis.
     - Never use emoticons.
     - Never use Markdown.
@@ -183,15 +183,15 @@ def ask_llm(text, language):
     - Never use hashtags.
 
     CORRECTIONS:
-    - Correct Fırat naturally, like a friend would.
+    - Correct Michael naturally, like a friend would.
     - Keep corrections very short.
     - Do not say things like "Here is the correct grammar" or "Let's learn this."
-    - If Fırat says something slightly wrong, you can simply use the correct form naturally in your reply.
+    - If Michael says something slightly wrong, you can simply use the correct form naturally in your reply.
     - Only explicitly point out a mistake when it is useful.
 
     MATH:
     - Always calculate simple math correctly.
-    - If Fırat asks an easy math question, you may make one short playful comment.
+    - If Michael asks an easy math question, you may make one short playful comment.
     - Then clearly state the correct answer.
     - Never give an incorrect mathematical result.
     """
@@ -199,9 +199,9 @@ def ask_llm(text, language):
     else:
 
         system_prompt = """
-        Sen Niko'sun.
+        Sen Robo'sun.
 
-        Kullanıcının adı Fırat.
+        Kullanıcının adı Michael.
 
         SADECE Türkçe konuş.
 
@@ -225,7 +225,7 @@ def ask_llm(text, language):
 
         MATEMATİK KURALLARI:
         - Basit matematik işlemlerini her zaman doğru hesapla.
-        - Fırat çok basit bir matematik sorusu sorarsa bir kısa şakayla takılabilirsin.
+        - Michael çok basit bir matematik sorusu sorarsa bir kısa şakayla takılabilirsin.
         - Ardından doğru sonucu açıkça söyle.
         - Asla yanlış matematik sonucu verme.
         - Örneğin 5 kere 5 kesinlikle 25 eder.
@@ -259,7 +259,7 @@ def ask_llm(text, language):
     # Emoji ve özel sembolleri temizle
     answer = re.sub(r"[\U00010000-\U0010ffff]","",answer)
 
-    # Niko'nun cevabını kısa tut
+    # Robo'nun cevabını kısa tut
     words = answer.split()
 
     if len(words) > 25:
@@ -294,7 +294,7 @@ def ask_llm(text, language):
 
 async def handle_client(websocket):
 
-    print("\nESP32 bağlandı.")
+    print("\nESP32 connected.")
 
     language = "tr"
 
@@ -308,7 +308,7 @@ async def handle_client(websocket):
 
             if isinstance(message, str):
 
-                print("ESP32 mesajı:", message)
+                print("ESP32 message:", message)
 
                 # Dil bilgisi
                 if message == "LANG:TR":
@@ -320,14 +320,14 @@ async def handle_client(websocket):
                 if message == "LANG:EN":
 
                     language = "en"
-                    print("Dil: İNGİLİZCE")
+                    print("Language: English")
                     continue
 
                 # ------------------------------------------------
                 # NORMAL METİN GELİRSE
                 # ------------------------------------------------
 
-                print("Metin:", message)
+                print("Text:", message)
 
             # ------------------------------------------------
             # BINARY SES
@@ -337,7 +337,7 @@ async def handle_client(websocket):
 
                 audio_data = message
 
-                print(f"\nSes alındı: "f"{len(audio_data)} byte")
+                print(f"\nAudio captured: "f"{len(audio_data)} byte")
 
                 # ------------------------------------------------
                 # WHISPER
@@ -386,21 +386,21 @@ async def handle_client(websocket):
 
                     if not text:
 
-                        print("Konuşma anlaşılmadı.")
+                        print("The speech was not understood..")
                         continue
 
                     # ------------------------------------------------
                     # LLM
                     # ------------------------------------------------
 
-                    print("Niko düşünüyor...")
+                    print("Robo thinking...")
 
                     answer = ask_llm(
                         text,
                         language
                     )
 
-                    print("Niko:", answer)
+                    print("Robo:", answer)
 
                     # ------------------------------------------------
                     # OLED'E CEVAP GÖNDER
@@ -420,7 +420,7 @@ async def handle_client(websocket):
 
                         voice_model = PIPER_TR
 
-                    print("Ses oluşturuluyor...")
+                    print("Audio is being generated...")
 
                     pcm = piper_tts(
                         answer,
@@ -431,7 +431,7 @@ async def handle_client(websocket):
                     # ESP32'YE SES GÖNDER
                     # ------------------------------------------------
 
-                    print("Ses ESP32'ye gönderiliyor...")
+                    print("Audio is being sent to the ESP32...")
 
                     await websocket.send(pcm)
 
@@ -447,7 +447,7 @@ async def handle_client(websocket):
 
     except websockets.exceptions.ConnectionClosed:
 
-        print("ESP32 bağlantısı kapandı.")
+        print("The ESP32 connection has closed.")
 
     except Exception as e:
 
@@ -462,10 +462,10 @@ async def main():
 
     print()
     print("====================================")
-    print(" NIKO AI SERVER")
+    print(" Robo AI SERVER")
     print("====================================")
     print(f"WebSocket: ws://0.0.0.0:{PORT}")
-    print("Bekleniyor...")
+    print("Waiting...")
     print()
 
     async with websockets.serve(
