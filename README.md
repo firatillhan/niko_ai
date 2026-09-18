@@ -28,7 +28,6 @@ Robo'nun amacı, kullanıcıyla doğal ve eğlenceli bir şekilde konuşmaktır.
 - PCM5102A I2S DAC
 - 3.5 mm ses çıkışlı hoparlör veya ses sistemi
 - Buton
-- Jumper kabloları
 
 ## ESP32 Pin Bağlantıları
 
