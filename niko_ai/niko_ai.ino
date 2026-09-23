@@ -60,10 +60,10 @@ int32_t sBuffer[bufferLen];
 #define DAC_SAMPLE_RATE 44100
 
 // =====================================================
-// Robo AI YÜZÜ
+// Niko AI YÜZÜ
 // =====================================================
 
-void drawRoboFace(int eyeDirection, bool mouthOpen) {
+void drawNikoFace(int eyeDirection, bool mouthOpen) {
 
   u8g2.clearBuffer();
 
@@ -300,7 +300,7 @@ void playAudio(const uint8_t* data,size_t length) {
         eyeDirection = 0;
       }
 
-      drawRoboFace(eyeDirection,mouthState);
+      drawNikoFace(eyeDirection,mouthState);
     }
 
     size_t chunk = totalSamples - position;
@@ -356,17 +356,17 @@ void onMessageCallback(
     Serial.println(" byte");
 
     playAudio((const uint8_t*) audioData,audioLength);
-    drawRoboFace(0, false);
+    drawNikoFace(0, false);
     return;
   }
 
   // ===================================================
-  // TEXT = Robo CEVABI
+  // TEXT = Niko CEVABI
   // ===================================================
 
   String msg =message.data();
 
-  Serial.print("Robo: ");
+  Serial.print("Niko: ");
   Serial.println(msg);
 }
 
@@ -466,7 +466,7 @@ void setup() {
 
   Serial.println();
   Serial.println("======================");
-  Serial.println("       Robo AI");
+  Serial.println("       Niko AI");
   Serial.println("======================");
 
   // ===================================================
@@ -573,7 +573,7 @@ void setup() {
     u8g2.drawStr(5,30,"ESP32 baglandi");
     u8g2.sendBuffer();
     delay(2000);
-    drawRoboFace(0, false);
+    drawNikoFace(0, false);
   } else {
     Serial.println("WebSocket BAGLANAMADI");
   }
@@ -604,7 +604,7 @@ void loop() {
       Serial.println("KAYIT BASLADI" );
       Serial.println("======================");
 
-      drawRoboFace(0, true);
+      drawNikoFace(0, true);
 
       // -----------------------------------------------
       // BUTONA BASILI TUTULDUĞU SÜRECE KAYDET
@@ -615,7 +615,7 @@ void loop() {
         static unsigned long lastFaceMove = 0;
         static int faceDirection = 0;
 
-        // Robo'nun gözlerini hareket ettir
+        // Niko'nun gözlerini hareket ettir
         if (millis() - lastFaceMove > 500) {
 
           // lastFaceMove = millis();
@@ -630,7 +630,7 @@ void loop() {
             faceDirection = 0;
           }
 
-          drawRoboFace(faceDirection, true);
+          drawNikoFace(faceDirection, true);
         }
 
         size_t bytesIn = 0;

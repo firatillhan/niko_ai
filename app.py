@@ -128,7 +128,7 @@ def piper_tts(text, model_path):
 def ask_llm(text, language):
     if language == "en":
         system_prompt = """
-    You are Robo, Michael's English-speaking friend.
+    You are Niko, Michael's English-speaking friend.
 
     The user's name is Michael.
 
@@ -199,7 +199,7 @@ def ask_llm(text, language):
     else:
 
         system_prompt = """
-        Sen Robo'sun.
+        Sen Niko'sun.
 
         Kullanıcının adı Michael.
 
@@ -259,7 +259,7 @@ def ask_llm(text, language):
     # Emoji ve özel sembolleri temizle
     answer = re.sub(r"[\U00010000-\U0010ffff]","",answer)
 
-    # Robo'nun cevabını kısa tut
+    # Niko'nun cevabını kısa tut
     words = answer.split()
 
     if len(words) > 25:
@@ -393,14 +393,14 @@ async def handle_client(websocket):
                     # LLM
                     # ------------------------------------------------
 
-                    print("Robo thinking...")
+                    print("Niko thinking...")
 
                     answer = ask_llm(
                         text,
                         language
                     )
 
-                    print("Robo:", answer)
+                    print("Niko:", answer)
 
                     # ------------------------------------------------
                     # OLED'E CEVAP GÖNDER
@@ -462,7 +462,7 @@ async def main():
 
     print()
     print("====================================")
-    print(" Robo AI SERVER")
+    print(" Niko AI SERVER")
     print("====================================")
     print(f"WebSocket: ws://0.0.0.0:{PORT}")
     print("Waiting...")

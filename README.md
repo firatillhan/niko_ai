@@ -1,10 +1,10 @@
-# Robo - ESP32-S3 Sesli Yapay Zekâ Asistanı
+# Niko - ESP32-S3 Sesli Yapay Zekâ Asistanı
 
-Robo, ESP32-S3 üzerinde çalışan, sesli komutları algılayan ve yapay zekâ ile cevap veren kişisel bir sesli asistandır.
+Niko, ESP32-S3 üzerinde çalışan, sesli komutları algılayan ve yapay zekâ ile cevap veren kişisel bir sesli asistandır.
 
 Proje, ESP32-S3 ile Mac üzerinde çalışan bir Python sunucusu arasında WebSocket bağlantısı kullanır.
 
-Robo'nun amacı, kullanıcıyla doğal ve eğlenceli bir şekilde konuşmaktır.
+Niko'nun amacı, kullanıcıyla doğal ve eğlenceli bir şekilde konuşmaktır.
 
 ## Özellikler
 
@@ -14,11 +14,11 @@ Robo'nun amacı, kullanıcıyla doğal ve eğlenceli bir şekilde konuşmaktır.
 - LM Studio üzerinden yapay zekâ cevapları
 - Piper TTS ile yazının sese dönüştürülmesi
 - PCM5102A DAC üzerinden ses çıkışı
-- OLED ekranda Robo yüz animasyonu
+- OLED ekranda Niko yüz animasyonu
 - Türkçe ve İngilizce dil seçimi
 - WebSocket üzerinden ESP32 ve Python haberleşmesi
 - İngilizce konuşma pratiğine uygun doğal sohbet
-- Robo'nun kısa ve eğlenceli cevaplar vermesi
+- Niko'nun kısa ve eğlenceli cevaplar vermesi
 
 ## Kullanılan Donanımlar
 
@@ -113,7 +113,7 @@ Projenin çalışma sırası şu şekildedir:
 9. Piper TTS cevabı sese dönüştürür.
 10. Ses ESP32-S3'e gönderilir.
 11. PCM5102A üzerinden hoparlörden ses duyulur.
-12. OLED ekranda Robo'nun yüz animasyonu oynatılır.
+12. OLED ekranda Niko'nun yüz animasyonu oynatılır.
 
 ## Python Sunucusunu Çalıştırma
 
